@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Calendar from "$lib/components/station/Calendar.svelte";
   import WeatherCondition from "$lib/components/station/WeatherCondition.svelte";
   import { ArrowLeft } from "@lucide/svelte";
 
@@ -23,8 +22,5 @@
       </h2>
     </div>
     <WeatherCondition hourlyData={hourly} />
-    <div class="flex flex-col gap-4 md:flex-row">
-      <Calendar dailyData={daily} />
-    </div>
   </div>
 </div>
