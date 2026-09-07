@@ -43,7 +43,15 @@ app.get(
   }),
 );
 
-const routes = [stat, station, hourlyData, historicalStat, dailyData, award, leaderboard] as const;
+const routes = [
+  stat,
+  station,
+  hourlyData,
+  historicalStat,
+  dailyData,
+  award,
+  leaderboard,
+] as const;
 
 routes.forEach((route) => {
   app.route("/", route);
@@ -67,7 +75,7 @@ app.use(
 export type AppType = (typeof routes)[number];
 
 export default {
-  port: Bun.env["PORT"]! || 8000,
+  port: Bun.env["PORT"]! || 3000,
   host: Bun.env["HOST"]! || "0.0.0.0",
   fetch: app.fetch,
 };
