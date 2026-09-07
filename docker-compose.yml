@@ -1,23 +1,4 @@
 services:
-  db:
-    image: postgres:latest
-    container_name: gsb-db
-    restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: gsb_postgres
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql
-    networks:
-      - internal
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d gsb_postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
   cron:
     build:
       context: .
@@ -28,9 +9,6 @@ services:
       - apps/cron/.env
     networks:
       - internal
-    depends_on:
-      db:
-        condition: service_healthy
   api:
     build:
       context: .
@@ -61,17 +39,6 @@ services:
     depends_on:
       api:
         condition: service_started
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: cloudflared
-    restart: always
-    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
-    networks:
-      - internal
 networks:
   internal:
     driver: bridge
-
-volumes:
-  pgdata:
-    name: gsb_volume
