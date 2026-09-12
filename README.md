@@ -18,3 +18,4 @@ These apps are deployed in my homelab using docker, and cloudflare tunnel.
 ## Links
 
 - [Website](https://gsb.momoy.ca)
+- [API](https://api.momoy.ca/api)
